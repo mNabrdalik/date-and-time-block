@@ -30,12 +30,13 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit() {
+	const currentDate = new Date().toLocaleDateString().toString()
+	const currentHour = new Date().getHours()
+	const currentMinutes = new Date().getMinutes()
+
 	return (
 		<p { ...useBlockProps() }>
-			{ __(
-				'Date And Time Block – hello from the editor!',
-				'date-and-time-block'
-			) }
+			{currentDate} - {currentHour}:{currentMinutes}
 		</p>
 	);
 }
