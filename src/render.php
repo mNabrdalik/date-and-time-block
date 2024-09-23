@@ -4,5 +4,7 @@
  */
 ?>
 <p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'Date And Time Block – hello from a dynamic block!', 'date-and-time-block' ); ?>
+	<?php 
+	echo esc_html( current_time( 'd.m.Y - H:i' ) );
+	?>
 </p>

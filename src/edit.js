@@ -19,7 +19,6 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import './editor.scss';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -29,10 +28,26 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
+
+
+import { useState, useEffect } from '@wordpress/element';
+
 export default function Edit() {
-	const currentDate = new Date().toLocaleDateString().toString()
-	const currentHour = new Date().getHours()
-	const currentMinutes = new Date().getMinutes()
+
+	//state for current date and hour
+	const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+	//refresh time every minute
+	useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentDateTime(new Date());
+        }, 60000); // update every minute (60000 ms)
+        return () => clearInterval(intervalId); //clear interval when exit component
+    }, []);
+
+	const currentDate = currentDateTime.toLocaleDateString().toString()
+    const currentHour = currentDateTime.getHours().toString().padStart(2, '0');
+    const currentMinutes = currentDateTime.getMinutes().toString().padStart(2, '0');
 
 	return (
 		<p { ...useBlockProps() }>
